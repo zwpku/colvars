@@ -71,7 +71,7 @@ void colvar::aspathCV::calc_gradients() {
             !cv[i_cv]->is_enabled(f_cvc_scalable_com)) {
             cvm::real factor_polynomial = getPolynomialFactorOfCVGradient(i_cv);
             for (size_t j_elem = 0; j_elem < cv[i_cv]->value().size(); ++j_elem) {
-                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                     for (size_t l_atom = 0; l_atom < (cv[i_cv]->atom_groups)[k_ag]->size(); ++l_atom) {
                         (*(cv[i_cv]->atom_groups)[k_ag])[l_atom].grad = dsdx[i_cv][j_elem] * factor_polynomial * (*(cv[i_cv]->atom_groups)[k_ag])[l_atom].grad;
                     }
@@ -87,7 +87,7 @@ void colvar::aspathCV::apply_force(colvarvalue const &force) {
             !cv[i_cv]->is_enabled(f_cvc_scalable) &&
             !cv[i_cv]->is_enabled(f_cvc_scalable_com)
         ) {
-            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                 (cv[i_cv]->atom_groups)[k_ag]->apply_colvar_force(force.real_value);
             }
         } else {
@@ -159,7 +159,7 @@ void colvar::azpathCV::calc_gradients() {
             !cv[i_cv]->is_enabled(f_cvc_scalable_com)) {
             cvm::real factor_polynomial = getPolynomialFactorOfCVGradient(i_cv);
             for (size_t j_elem = 0; j_elem < cv[i_cv]->value().size(); ++j_elem) {
-                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                     for (size_t l_atom = 0; l_atom < (cv[i_cv]->atom_groups)[k_ag]->size(); ++l_atom) {
                         (*(cv[i_cv]->atom_groups)[k_ag])[l_atom].grad = dzdx[i_cv][j_elem] * factor_polynomial * (*(cv[i_cv]->atom_groups)[k_ag])[l_atom].grad;
                     }
@@ -176,7 +176,7 @@ void colvar::azpathCV::apply_force(colvarvalue const &force) {
             !cv[i_cv]->is_enabled(f_cvc_scalable) &&
             !cv[i_cv]->is_enabled(f_cvc_scalable_com)
         ) {
-            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                 (cv[i_cv]->atom_groups)[k_ag]->apply_colvar_force(force.real_value);
             }
         } else {

@@ -918,8 +918,8 @@ void colvar::build_atom_list(void)
   std::list<int> temp_id_list;
 
   for (size_t i = 0; i < cvcs.size(); i++) {
-    for (size_t j = 0; j < cvcs[i]->atom_groups.size(); j++) {
-      cvm::atom_group const &ag = *(cvcs[i]->atom_groups[j]);
+    for (size_t j = 0; j < cvcs[i]->num_atom_groups(); j++) {
+      cvm::atom_group const &ag = *(cvcs[i]->atom_groups(j));
       for (size_t k = 0; k < ag.size(); k++) {
         temp_id_list.push_back(ag[k].id);
       }
@@ -1170,11 +1170,11 @@ void colvar::setup()
 {
   // loop over all components to update masses and charges of all groups
   for (size_t i = 0; i < cvcs.size(); i++) {
-    for (size_t ig = 0; ig < cvcs[i]->atom_groups.size(); ig++) {
-      cvm::atom_group *atoms = cvcs[i]->atom_groups[ig];
-      atoms->setup();
-      atoms->print_properties(name, i, ig);
-      atoms->read_positions();
+    for (size_t ig = 0; ig < cvcs[i]->num_atom_groups(); ig++) {
+      cvm::atom_group &atoms = cvcs[i]->atom_groups(ig);
+      atoms.setup();
+      atoms.reset_mass(name,i,ig);
+      atoms.read_positions();
     }
   }
 }

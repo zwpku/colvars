@@ -475,7 +475,7 @@ void colvar::linearCombination::calc_gradients() {
             !cv[i_cv]->is_enabled(f_cvc_scalable_com)) {
             cvm::real factor_polynomial = getPolynomialFactorOfCVGradient(i_cv);
             for (size_t j_elem = 0; j_elem < cv[i_cv]->value().size(); ++j_elem) {
-                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                     for (size_t l_atom = 0; l_atom < (cv[i_cv]->atom_groups)[k_ag]->size(); ++l_atom) {
                         (*(cv[i_cv]->atom_groups)[k_ag])[l_atom].grad = factor_polynomial * (*(cv[i_cv]->atom_groups)[k_ag])[l_atom].grad;
                     }
@@ -493,7 +493,7 @@ void colvar::linearCombination::apply_force(colvarvalue const &force) {
             !cv[i_cv]->is_enabled(f_cvc_scalable) &&
             !cv[i_cv]->is_enabled(f_cvc_scalable_com)
         ) {
-            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                 (cv[i_cv]->atom_groups)[k_ag]->apply_colvar_force(force.real_value);
             }
         } else {
@@ -731,7 +731,7 @@ void colvar::gspathCV::calc_gradients() {
                 tmp_cv_grad_v2[j_elem] = sign * 0.5 * dfdv2[i_cv][j_elem] / M;
                 // Apply the gradients to the atom groups in i-th cv
                 // Loop over all atom groups
-                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                     // Loop over all atoms in the k-th atom group
                     for (size_t l_atom = 0; l_atom < (cv[i_cv]->atom_groups)[k_ag]->size(); ++l_atom) {
                         // Chain rule
@@ -751,7 +751,7 @@ void colvar::gspathCV::apply_force(colvarvalue const &force) {
             !cv[i_cv]->is_enabled(f_cvc_scalable) &&
             !cv[i_cv]->is_enabled(f_cvc_scalable_com)
         ) {
-            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                 (cv[i_cv]->atom_groups)[k_ag]->apply_colvar_force(force.real_value);
             }
         } else {
@@ -874,7 +874,7 @@ void colvar::gzpathCV::calc_gradients() {
             for (size_t j_elem = 0; j_elem < cv[i_cv]->value().size(); ++j_elem) {
                 // Apply the gradients to the atom groups in i-th cv
                 // Loop over all atom groups
-                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+                for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                     // Loop over all atoms in the k-th atom group
                     for (size_t l_atom = 0; l_atom < (cv[i_cv]->atom_groups)[k_ag]->size(); ++l_atom) {
                         // Chain rule
@@ -893,7 +893,7 @@ void colvar::gzpathCV::apply_force(colvarvalue const &force) {
         if ( cv[i_cv]->is_enabled(f_cvc_explicit_gradient) &&
             !cv[i_cv]->is_enabled(f_cvc_scalable) &&
             !cv[i_cv]->is_enabled(f_cvc_scalable_com)) {
-            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->atom_groups.size(); ++k_ag) {
+            for (size_t k_ag = 0 ; k_ag < cv[i_cv]->num_atom_groups(); ++k_ag) {
                 (cv[i_cv]->atom_groups)[k_ag]->apply_colvar_force(force.real_value);
             }
         }
