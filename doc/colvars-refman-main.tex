@@ -61,7 +61,7 @@ The module is designed to perform multiple tasks concurrently during or after a 
 
 \item calculate potentials of mean force (PMFs) along any set of variables, using different enhanced sampling methods, such as Adaptive Biasing Force (ABF), metadynamics, steered MD and umbrella sampling; variants of these methods that make use of an ensemble of replicas are supported as well;
 
-\item calculate statistical properties of the variables, such as running averages and standard deviations, correlation functions of pairs of variables, and multidimensional histograms: this can be done either at run-time without the need to save very large trajectory files, or after a simulation has been completed using VMD and the \texttt{cv} command\cvnamdugonly{ or NAMD and the \texttt{coorfile read} command as illustrated in \ref{section:sample}}.
+\item calculate statistical properties of the variables, such as running averages and standard deviations, correlation functions of pairs of variables, and multidimensional histograms: this can be done either at run-time without the need to save very large trajectory files, or after a simulation has been completed using VMD and the \formatkey{cv} command\cvnamdugonly{ or NAMD and the \formatkey{coorfile read} command as illustrated in \ref{section:sample}}.
 
 \end{itemize}
 
@@ -116,13 +116,13 @@ harmonic \{\\
 \}\\
 }
 
-Reading this input in plain English: the variable here named \emph{dist} consists in a distance function between the centers of two groups: the ligand (atoms 42 to 55) and the $\alpha$-carbon atoms of residues 15 to 30 in the protein \cvnamebasedonly{(segment name PR)}\cvlammpsonly{(selected from the index group ``\texttt{C-alpha\_15-30}'')}.
-To the ``\emph{dist}'' variable, we apply a \texttt{harmonic} potential of force constant 20~\cvnamdonly{kcal/mol}\cvvmdonly{kcal/mol}\cvlammpsonly{(energy unit)}/\cvnamdonly{\AA}\cvvmdonly{\AA}\cvlammpsonly{(length unit)}$^2$, initially centered around a value of 4~\cvnamdonly{\AA}\cvvmdonly{\AA}\cvlammpsonly{(length unit)}, which will increase to 15~\cvnamdonly{\AA}\cvvmdonly{\AA}\cvlammpsonly{(length unit)} over 500,000 simulation steps.
+Reading this input in plain English: the variable here named \emph{dist} consists in a distance function between the centers of two groups: the ligand (atoms 42 to 55) and the $\alpha$-carbon atoms of residues 15 to 30 in the protein \cvnamebasedonly{(segment name PR)}\cvlammpsonly{(selected from the index group \formatkey{C-alpha\_15-30})}.
+To the ``\emph{dist}'' variable, we apply a \formatkey{harmonic} potential of force constant 20~\cvnamdonly{kcal/mol}\cvvmdonly{kcal/mol}\cvlammpsonly{(energy unit)}/\cvnamdonly{\AA}\cvvmdonly{\AA}\cvlammpsonly{(length unit)}$^2$, initially centered around a value of 4~\cvnamdonly{\AA}\cvvmdonly{\AA}\cvlammpsonly{(length unit)}, which will increase to 15~\cvnamdonly{\AA}\cvvmdonly{\AA}\cvlammpsonly{(length unit)} over 500,000 simulation steps.
 
 The atom selection keywords are detailed in section \ref{sec:colvar_atom_groups}.
 \cvlammpsonly{If the selection is too complex to implement only via internal keywords, an external index file may be created following the NDX format used in GROMACS:\\
 \url{http://manual.gromacs.org/documentation/current/user-guide/file-formats.html}\\
-or by using the \texttt{group2ndx} LAMMPS command.}
+or by using the \formatkey{group2ndx} LAMMPS command.}
 
 
 \cvvmdonly{
@@ -171,7 +171,7 @@ Atomic coordinates can be modified using VMD's ``Mouse/Move'' functions, and the
 A dropdown list allows for changing the current unit system if no variables are defined.
 If some variables are already defined, it is recommended to edit the configuration for all of
 them at once (eg. pressing Ctrl-a, then Ctrl-e), checking that all quantities are expressed in the desired set of units, and adding the
-\texttt{units} keyword to the general parameters, outside of \texttt{colvar \{\}} blocks (\ref{sec:units}).
+\formatkey{units} keyword to the general parameters, outside of \formatkey{colvar \{\}} blocks (\ref{sec:units}).
 
 Another dropdown lets the user change which VMD molecule is associated with the Colvars module.
 Internally, this requires recording the configuration of currently defined colvars, deleting the current instance of the Colvars module,
@@ -199,11 +199,11 @@ Templates are indented using 4 spaces per level to indicate their position in th
 bias and colvar parameters like components at level 1, component parameters such as atom groups at level 2, and atom group parameters at level 3.
 
 The next helper buttons allow importing atom selections from VMD, either typing a VMD atom selection text, by copying the selection of an existing graphical representation, or by inserting the list of atoms currently labeled in VMD using the ``Pick atom'' feature.
-Atom selections should be inserted within an atom group block, within a component block (such as \texttt{distance}).
+Atom selections should be inserted within an atom group block, within a component block (such as \formatkey{distance}).
 By default atom selections are preceded with a comment line marking them as \emph{auto-updating}.
 This instructs the Dashboard to update the list of atoms whenever the configuration is applied, that is, when it is edited, when the file is loaded by the Dashboard, or when changing the VMD molecule linked to Colvars.
 This is useful when working across systems with different atom numberings, but topologies that make the relevant atom groups identifiable using VMD selection texts.
-Special fields (O, B, and user) may be used, as well as atom positions (e.g. \texttt{z > 0}).
+Special fields (O, B, and user) may be used, as well as atom positions (e.g. \formatkey{z > 0}).
 If the selection text is modified manually, the atom list will be updated when applying the new configuration.
 This auto-updating behavior can be disabled by removing the special comment line or altering the keywords ``auto-updating selection''.
 
@@ -235,8 +235,8 @@ Each atom group is shown in a different color.
 It creates a graphical representation of the atomic gradients of the selected variables, visualizing how the value of the collective variable would vary in response to a change in atomic coordinates.
 Vectors representing the gradient are rescaled as indicated by the radio buttons \emph{Set max. vector norm} and \emph{Set scaling factor}.
 \emph{Set max. vector norm} rescales gradients so that the largest vector component of each colvar's gradient is represented by an arrow of the specified length, in \AA.
-\emph{Set scaling factor} rescales gradients by the specified factor, divided by the colvar's \texttt{width} parameter (1 by default, see~\ref{sec:colvar_grid_params}).
-This use of \texttt{width} makes it easier to compare the gradients of collective variables that are not commensurate.
+\emph{Set scaling factor} rescales gradients by the specified factor, divided by the colvar's \formatkey{width} parameter (1 by default, see~\ref{sec:colvar_grid_params}).
+This use of \formatkey{width} makes it easier to compare the gradients of collective variables that are not commensurate.
 The scaling factor has the unit $\AA * L / (cv / width)$, where $L$ is the current length unit, and $cv$ represents the natural unit of the collective variable.
 By default $width$ is unity, but $(cv / width)$ may be seen as dimensionless if $width$ is expressed in cv units.
 
@@ -272,10 +272,10 @@ To avoid errors due to reading configuration files written in a different unit s
   \cvnamdonly{In NAMD the only allowed value is NAMD's native units: \textit{real} (\AA, kcal/mol).}
   \cvvmdonly{Allowed values are:  \textit{real} (\AA, kcal/mol), \textit{gromacs} (nm, kJ/mol), \textit{metal} (\AA, eV), and \textit{electron} (Bohr, Hartree).
   In VMD, the default system of units for Colvars is VMD's native units: \textit{real} (\AA, kcal/mol).
-  However, the \texttt{units} keyword will switch to a different unit system than the
+  However, the \formatkey{units} keyword will switch to a different unit system than the
   current one if no colvars were defined before reading the current configuration.
-  If colvars are already defined, \texttt{units} will refuse changing the unit system to avoid making the definition of those variables erroneous in the new system of units.
-  If needed this precaution can be overridden using the \texttt{cv units} scripting command
+  If colvars are already defined, \formatkey{units} will refuse changing the unit system to avoid making the definition of those variables erroneous in the new system of units.
+  If needed this precaution can be overridden using the \formatkey{cv units} scripting command
   (\ref{sec:cvscript_tcl_cv}).}
   }
 \end{itemize}
@@ -283,9 +283,9 @@ To avoid errors due to reading configuration files written in a different unit s
 \cvnamdonly{
 \cvsubsec{NAMD parameters}{sec:colvars_mdengine_params}
 
-To enable a Colvars-based calculation, the \texttt{colvars on} command must be added to the NAMD script.
-Two optional commands, \texttt{colvarsConfig} and \texttt{colvarsInput} can be used to define the module's configuration or continue a previous simulation.
-Because these are static parameters, it is typically more convenient to use the \texttt{cv} command in the rest of the NAMD script.
+To enable a Colvars-based calculation, the \formatkey{colvars on} command must be added to the NAMD script.
+Two optional commands, \formatkey{colvarsConfig} and \formatkey{colvarsInput} can be used to define the module's configuration or continue a previous simulation.
+Because these are static parameters, it is typically more convenient to use the \formatkey{cv} command in the rest of the NAMD script.
 
 \begin{itemize}
 %  \setlength{\itemsep}{0.4cm}
@@ -296,7 +296,7 @@ Because these are static parameters, it is typically more convenient to use the 
     NAMD configuration file}{%
     Enable the Colvars module}{%
     boolean}{%
-    \texttt{off}}{%
+    \formatkey{off}}{%
     If this flag is on, the Colvars module within NAMD is enabled.}
 
 \item %
@@ -306,8 +306,8 @@ Because these are static parameters, it is typically more convenient to use the 
     Configuration file for the collective variables}{%
     UNIX filename}{%
     Name of the Colvars configuration file (\ref{sec:colvars_config_syntax}, \ref{sec:colvars_global} and following sections).
-    This file can also be provided by the Tcl command \texttt{cv configfile}.
-    Alternatively, the contents of the file (as opposed to the file itself) can be given as a string argument to the command \texttt{cv config}.
+    This file can also be provided by the Tcl command \formatkey{cv configfile}.
+    Alternatively, the contents of the file (as opposed to the file itself) can be given as a string argument to the command \formatkey{cv config}.
   }
 
 \item %
@@ -317,7 +317,7 @@ Because these are static parameters, it is typically more convenient to use the 
     Input state file for the collective variables}{%
     UNIX filename}{%
     Keyword used to specify the input state file's name (\ref{sec:colvars_input}).
-    If the input file is meant to be loaded within a Tcl script section, the \texttt{cv load} command may be used instead.
+    If the input file is meant to be loaded within a Tcl script section, the \formatkey{cv load} command may be used instead.
   }
 
 \end{itemize}
@@ -339,7 +339,7 @@ where \emph{ID} is a string that uniquely identifies this fix command inside a L
 \item %
   \key
     {input}{%
-    Keyword of the \texttt{fix colvars} command}{%
+    Keyword of the \formatkey{fix colvars} command}{%
     Name or prefix of the input state file}{%
     string}{%
     If a value is provided, it is interpreted as either the name of the input state file, or as the prefix of the file named \emph{input}\texttt{.colvars.state}.
@@ -350,7 +350,7 @@ where \emph{ID} is a string that uniquely identifies this fix command inside a L
 \item %
   \keydef
     {output}{%
-    Keyword of the \texttt{fix colvars} command}{%
+    Keyword of the \formatkey{fix colvars} command}{%
     Prefix of the output state file}{%
     string}{%
     ``out''}{%
@@ -359,7 +359,7 @@ where \emph{ID} is a string that uniquely identifies this fix command inside a L
 \item %
   \keydef
     {unwrap}{%
-    keyword of the \texttt{fix colvars} command}{%
+    keyword of the \formatkey{fix colvars} command}{%
     Whether to unwrap coordinates passed to the Colvars module}{%
     ``yes'' or ``no''}{%
     ``yes''}{%
@@ -369,17 +369,17 @@ Setting this to \emph{no} will use the current local coordinates that are wrappe
 \item %
   \keydef
     {seed}{%
-    Keyword of the \texttt{fix colvars} command}{%
+    Keyword of the \formatkey{fix colvars} command}{%
     Seed for the random number generator}{%
     positive integer}{%
     1966}{%
     If defined, the value of this keyword is provided as seed to the random number generator.
-    This is only meaningful when the \texttt{extendedLangevinDamping} keyword is used (see \ref{sec:colvar_extended}).}
+    This is only meaningful when the \formatkey{extendedLangevinDamping} keyword is used (see \ref{sec:colvar_extended}).}
 
 \item %
   \keydef
     {tstat}{%
-    Keyword of the \texttt{fix colvars} command}{%
+    Keyword of the \formatkey{fix colvars} command}{%
     Thermostating fix}{%
     string}{%
     NULL}{%
@@ -391,27 +391,27 @@ Setting this to \emph{no} will use the current local coordinates that are wrappe
 
 
 \cvscriptonly{
-\cvsubsec{Using the \texttt{cv} command to control the Colvars module}{sec:cv_scripting}
+\cvsubsec{Using the \formatkey{cv} command to control the Colvars module}{sec:cv_scripting}
 \cvvmdugonly{\index{Colvars!\texttt{cv} command}}
 
-At any moment after the first initialization of the Colvars module, several options can be read or modified by the Tcl command \texttt{cv}, with the following syntax:\\
+At any moment after the first initialization of the Colvars module, several options can be read or modified by the Tcl command \formatkey{cv}, with the following syntax:\\
 \noindent\texttt{cv~$<$subcommand$>$ [args ...]}\\
-\cvvmdonly{The \texttt{cv} command is used by the Dashboard graphical interface,(\ref{sec:dashboard}), but can be also used in scripts or interactively from the command-line terminal (for example, in remote terminal sessions) or in the Tk Console.}
-The most frequent uses of the \texttt{cv} command are discussed here.
-For a complete list of all sub-commands of \texttt{cv}, see section~\ref{sec:cvscript_tcl}.
+\cvvmdonly{The \formatkey{cv} command is used by the Dashboard graphical interface,(\ref{sec:dashboard}), but can be also used in scripts or interactively from the command-line terminal (for example, in remote terminal sessions) or in the Tk Console.}
+The most frequent uses of the \formatkey{cv} command are discussed here.
+For a complete list of all sub-commands of \formatkey{cv}, see section~\ref{sec:cvscript_tcl}.
 
 \cvsubsubsec{Setting up the Colvars module}{sec:cv_command_init}
 
 \cvvmdonly{
 The first step to using Colvars in VMD is choosing which ``molecule'' (i.e.{} which system): because VMD can handle multiple ``molecules'', the Colvars module needs to remain attached to a specific VMD molecule.  For example:\\
 \noindent\texttt{cv molid top}\\
-\noindent{}will attach the Colvars module onto the molecule currently holding the ``top'' status (alternatively, you can refer to a molecule by its numeric ID in lieu of \texttt{top}).
-All following invocations of the \texttt{cv} command will continue operating on the same molecule, regardless of whether other molecules are loaded, or which one has the ``top'' status.
-The \texttt{cv molid} command without argument will return the molid currently associated with Colvars.
+\noindent{}will attach the Colvars module onto the molecule currently holding the ``top'' status (alternatively, you can refer to a molecule by its numeric ID in lieu of \formatkey{top}).
+All following invocations of the \formatkey{cv} command will continue operating on the same molecule, regardless of whether other molecules are loaded, or which one has the ``top'' status.
+The \formatkey{cv molid} command without argument will return the molid currently associated with Colvars.
 }
 
 \cvnamdonly{
-  If the NAMD configuration parameter \texttt{colvars} is on, the \texttt{cv} command can be used anywhere in the NAMD script, and will be invoked as soon as NAMD begins processing Tcl commands.
+  If the NAMD configuration parameter \formatkey{colvars} is on, the \formatkey{cv} command can be used anywhere in the NAMD script, and will be invoked as soon as NAMD begins processing Tcl commands.
 }
 
 To define collective variables and biases, configuration can be loaded using either:\\
@@ -440,7 +440,7 @@ The latter version is particularly useful to dynamically define the Colvars conf
 
 The vast majority of the syntax in Colvars is backward-compatible, adding keywords when new features are introduced.
 However, when using multiple versions simultaneously it may be useful to test within the script whether the version is recent enough to support the desired feature.
-\texttt{cv version} can be used to get the Colvars version for this use:\\
+\formatkey{cv version} can be used to get the Colvars version for this use:\\
 {\noindent\ttfamily
   if \{ [cv version] >= "2020-02-25" \} \{\\
   \-~~cv config "(use a recent feature)"\\
@@ -449,18 +449,18 @@ However, when using multiple versions simultaneously it may be useful to test wi
 
 \cvsubsubsec{Loading and saving the Colvars state and other information}{sec:cv_command_loadsave}
 
-After a configuration is fully defined, \texttt{cv load} may be used to load a state file from a previous simulation that contains e.g.{} data from history-dependent biases), to either continue that simulation or analyze its results:\\
+After a configuration is fully defined, \formatkey{cv load} may be used to load a state file from a previous simulation that contains e.g.{} data from history-dependent biases), to either continue that simulation or analyze its results:\\
 \noindent\texttt{cv load $<$oldjob$>$.colvars.state}\\
 \noindent{}or more simply using the prefix of the state file itself:\\
 \noindent\texttt{cv load $<$oldjob$>$}\\
-\cvnamdonly{\noindent{}The latter is much more convenient in combination with the NAMD \texttt{reinitatoms} command, for example:\\
+\cvnamdonly{\noindent{}The latter is much more convenient in combination with the NAMD \formatkey{reinitatoms} command, for example:\\
 {\noindent\ttfamily
   reinitatoms $<$oldjob$>$\\
   cv load $<$oldjob$>$\\
 }
-The step number contained by the loaded file will be used internally by Colvars to control time-dependent biases, unless \texttt{firstTimestep} is issued, in which case that value will be used.}
+The step number contained by the loaded file will be used internally by Colvars to control time-dependent biases, unless \formatkey{firstTimestep} is issued, in which case that value will be used.}
 
-\cvnamdonly{When the system's topology is changed during simulation via the \texttt{structure} command (e.g.{} in constant-pH simulations), it is generally best to reset and re-initalize the module from scratch before loading the corresponding snapshot:\\
+\cvnamdonly{When the system's topology is changed during simulation via the \formatkey{structure} command (e.g.{} in constant-pH simulations), it is generally best to reset and re-initalize the module from scratch before loading the corresponding snapshot:\\
 {\noindent\ttfamily
   structure newsystem.psf\\
   reinitatoms $<$snapshot$>$\\
@@ -470,9 +470,9 @@ The step number contained by the loaded file will be used internally by Colvars 
 }
 }
 
-\texttt{cv save}, analogous to \texttt{cv load}, saves all restart information to a state file.
+\formatkey{cv save}, analogous to \formatkey{cv load}, saves all restart information to a state file.
 This is normally not required during a simulation if \refkey{colvarsRestartFrequency}{Colvars-global|colvarsRestartFrequency} is defined (either directly or indirectly by the \MDENGINE{} restart frequency), but it is necessary in post-processing e.g.{} with VMD.
-Because not only a state file (used to continue simulations) but also other data files (used to analyze the trajectory) are written, it is generally clearer to use \texttt{cv save} with a prefix rather than a file name:\\
+Because not only a state file (used to continue simulations) but also other data files (used to analyze the trajectory) are written, it is generally clearer to use \formatkey{cv save} with a prefix rather than a file name:\\
 \noindent\texttt{cv save $<$job$>$}
 
 See \ref{sec:cvscript_tcl_cv} for a complete list of scripting commands used to manage the Colvars module.
@@ -506,40 +506,40 @@ A complete example input for this use case is shown here.
 
 \cvsubsubsec{Managing collective variables}{sec:cv_command_colvar}
 
-After one or more collective variables are defined, they can be accessed via \texttt{cv colvar [args ...]}.
-For example, to recompute the collective variable \texttt{xi} the following command can be used:\\
+After one or more collective variables are defined, they can be accessed via \formatkey{cv colvar [args ...]}.
+For example, to recompute the collective variable \formatkey{xi} the following command can be used:\\
 \noindent\texttt{cv colvar xi update}\\
 \noindent{}This ordinarily is not needed during a simulation run, where all variables are recomputed at every step (along with biasing forces acting on them).
-However, when analyzing an existing trajectory a call to \texttt{update} is generally required.
+However, when analyzing an existing trajectory a call to \formatkey{update} is generally required.
 
-While in all typical cases all configuration of the variables is done with \texttt{cv config} or \texttt{cv configfile}, a limited set of changes can be enacted at runtime using \texttt{cv colvar $<$name$>$ modifycvcs [args ...]}.
+While in all typical cases all configuration of the variables is done with \formatkey{cv config} or \formatkey{cv configfile}, a limited set of changes can be enacted at runtime using \formatkey{cv colvar $<$name$>$ modifycvcs [args ...]}.
 Each argument is a string passed to the function or functions that are used to compute the variable, and are called colvar components, or CVCs (\ref{sec:cvc_list}).
-For example, a variable \texttt{DeltaZ} made of a single \texttt{distanceZ} CVC can be made periodic with a period equal to the unit cell dimension along the Z-axis:\\
+For example, a variable \formatkey{DeltaZ} made of a single \formatkey{distanceZ} CVC can be made periodic with a period equal to the unit cell dimension along the Z-axis:\\
 \noindent\texttt{cv colvar DeltaZ modifycvcs "period \$Lz"}\\
-\cvnamdonly{\noindent{}where \texttt{\$Lz} is obtained outside Colvars.\\}
-\cvvmdonly{\noindent{}where \texttt{\$Lz} may be obtained for example as:\\
+\cvnamdonly{\noindent{}where \formatkey{\$Lz} is obtained outside Colvars.\\}
+\cvvmdonly{\noindent{}where \formatkey{\$Lz} may be obtained for example as:\\
 \noindent\texttt{set Lz [molinfo top get c]}.\\}
-\noindent{}This option is currently limited to changing the values of \refkey{componentCoeff}{sec:cvc_superp} and \refkey{componentExp}{sec:cvc_superp} (e.g.{} to update the polynomial superposition parameters on the fly), of \refkey{period}{sec:cvc_periodic} and \refkey{wrapAround}{sec:cvc_periodic}, and of the \texttt{forceNoPBC} option for all components that support it.
+\noindent{}This option is currently limited to changing the values of \refkey{componentCoeff}{sec:cvc_superp} and \refkey{componentExp}{sec:cvc_superp} (e.g.{} to update the polynomial superposition parameters on the fly), of \refkey{period}{sec:cvc_periodic} and \refkey{wrapAround}{sec:cvc_periodic}, and of the \formatkey{forceNoPBC} option for all components that support it.
 
 If the variable is computed using more than one CVC, it is possible to selectively turn some of them on or off:\\
 \noindent\texttt{cv colvar xi cvcflags $<$flags$>$}\\
-\noindent{}where \texttt{$<$flags$>$} is a list of 0/1 values, one per component.
+\noindent{}where \formatkey{$<$flags$>$} is a list of 0/1 values, one per component.
 This is useful for example when Tcl script-based path collective variables in Cartesian coordinates (\ref{sec:apath_scripted}) are used, to minimize computational cost by disabling the computation of terms that are very close to zero.
 
-\textbf{Important:} None of the changes enacted by \texttt{modifycvcs} or \texttt{cvcflags} will be saved to state files, and will be lost when restarting a simulation, deleting the corresponding collective variable, or resetting the module with \cvvmdonly{\texttt{cv delete} or} \texttt{cv reset}.
+\textbf{Important:} None of the changes enacted by \formatkey{modifycvcs} or \formatkey{cvcflags} will be saved to state files, and will be lost when restarting a simulation, deleting the corresponding collective variable, or resetting the module with \cvvmdonly{\formatkey{cv delete} or} \formatkey{cv reset}.
 
 \cvsubsubsec{Applying and analyzing forces on collective variables}{sec:cv_command_colvar_force}
 
-As soon as a collective variable is up to date (during a MD run or after its \texttt{update} method has been called), forces can be applied to it, e.g.{} as part of a custom restraint implemented by \refkey{scriptedColvarForces}{Colvars-global|scriptedColvarForces}:\\
+As soon as a collective variable is up to date (during a MD run or after its \formatkey{update} method has been called), forces can be applied to it, e.g.{} as part of a custom restraint implemented by \refkey{scriptedColvarForces}{Colvars-global|scriptedColvarForces}:\\
 \noindent\texttt{cv colvar xi addforce \$force}\\
-\noindent{}where \texttt{\$force} is a scalar or a vector (depending on the type of variable \texttt{xi}) and is defined by the user's function.
+\noindent{}where \formatkey{\$force} is a scalar or a vector (depending on the type of variable \formatkey{xi}) and is defined by the user's function.
 The force will be physically applied to the corresponding atoms during the simulation after Colvars communicates all forces to the rest of \MDENGINE{}.
 \cvvmdonly{(In VMD, these forces will never have an effect.)}
-Until then, the total force applied to \texttt{xi} from all biases can be retrieved by:\\
+Until then, the total force applied to \formatkey{xi} from all biases can be retrieved by:\\
 \noindent\texttt{cv colvar xi getappliedforce}\\
 \noindent{}(see also the use of the \refkey{outputAppliedForce}{colvar|outputAppliedForce} option).
 
-To obtain the total force projected on the variable \texttt{xi}:\\
+To obtain the total force projected on the variable \formatkey{xi}:\\
 \noindent\texttt{cv colvar xi gettotalforce}\\
 \noindent{}Note that not all types of variable support this option, and the value of the total force may not be available immediately: see \refkey{outputTotalForce}{colvar|outputTotalForce} for more details.
 
@@ -549,14 +549,14 @@ See \ref{sec:cvscript_tcl_colvar} for a complete list of scripting commands used
 \cvsubsubsec{Managing collective variable biases}{sec:cv_command_bias}
 
 Because biases depend only upon data internal to the Colvars module (i.e.{} they do not need atomic coordinates from \MDENGINE{}), it is generally easy to create them or update their configuration at any time.
-For example, given the most current value of the variable \texttt{xi}, an already-defined restraint on it named \texttt{harmonic\_xi} can be updated as:\\
+For example, given the most current value of the variable \formatkey{xi}, an already-defined restraint on it named \formatkey{harmonic\_xi} can be updated as:\\
 \noindent\texttt{cv bias harmonic\_xi update}\\
 Again, this is not generally needed during a running simulation, when an automat
 ic update of each bias is already carried out.
 
-Calling \texttt{update} for a bias is most useful for just-defined biases or when changing their configuration.
-When \texttt{update} is called e.g.{} as part of the function invoked by \refkey{scriptedColvarForces}{Colvars-global|scriptedColvarForces}, it is executed before any biasing forces are applied to the variables, thus allowing to modify them.
-This use of \texttt{update} is often used e.g.{} in the definition of custom bias-exchange algorithms as part of the \MDENGINE{} script.
+Calling \formatkey{update} for a bias is most useful for just-defined biases or when changing their configuration.
+When \formatkey{update} is called e.g.{} as part of the function invoked by \refkey{scriptedColvarForces}{Colvars-global|scriptedColvarForces}, it is executed before any biasing forces are applied to the variables, thus allowing to modify them.
+This use of \formatkey{update} is often used e.g.{} in the definition of custom bias-exchange algorithms as part of the \MDENGINE{} script.
 Because a bias is a relatively light-weight object, the easiest way to change the configuration of an existing bias is deleting it and re-creating it:\\
 {\noindent\ttfamily\\
 \-{\bfseries\# Delete the restraint "harmonic\_xi"}\\
@@ -586,7 +586,7 @@ It is thus useful to load information from a state file that contains informatio
 \noindent\texttt{cv bias metadynamics1 load old.colvars.state}\\
 \noindent{}or alternatively, using the prefix of the file instead of its full name:\\
 \noindent\texttt{cv bias metadynamics1 load old}\\
-A corresponding \texttt{save} function is also available:\\
+A corresponding \formatkey{save} function is also available:\\
 \noindent\texttt{cv bias metadynamics1 save new}\\
 This pair of functions is also used internally by Colvars to implement e.g.{} multiple-walker metadynamics (\ref{sec:colvarbias_meta_mr}), but they can be called from a scripted function to implement alternative coupling schemes.
 
@@ -596,32 +596,32 @@ See \ref{sec:cvscript_tcl_bias} for a complete list of scripting commands used t
 
 \cvsubsec{Configuration syntax used by the Colvars module}{sec:colvars_config_syntax}
 
-\cvnamdonly{All the parameters defining variables and their biasing or analysis algorithms are read from the file specified by the configuration option \texttt{colvarsConfig}, or by the Tcl commands \texttt{cv config} and \texttt{cv configfile}.
-\emph{None of the keywords described in the remainder of this manual are recognized directly in the NAMD configuration file, unless as arguments of \texttt{cv config}.}}
-\cvvmdonly{The Colvars configuration is usually read using the commands \texttt{cv configfile} (with a filename as argument) or \texttt{cv config} (with the configuration as a string argument).}
-Each configuration line follows the format ``\texttt{keyword value}'', where the keyword and its value are separated by any white space.
+\cvnamdonly{All the parameters defining variables and their biasing or analysis algorithms are read from the file specified by the configuration option \formatkey{colvarsConfig}, or by the Tcl commands \formatkey{cv config} and \formatkey{cv configfile}.
+\emph{None of the keywords described in the remainder of this manual are recognized directly in the NAMD configuration file, unless as arguments of \formatkey{cv config}.}}
+\cvvmdonly{The Colvars configuration is usually read using the commands \formatkey{cv configfile} (with a filename as argument) or \formatkey{cv config} (with the configuration as a string argument).}
+Each configuration line follows the format \formatkey{keyword value}, where the keyword and its value are separated by any white space.
 The following rules apply:
 
 \begin{itemize}
 
-\item keywords are case-insensitive (\texttt{upperBoundary} is the same as \texttt{upperboundary} and \texttt{UPPERBOUNDARY}): their string values are however case-sensitive (e.g.~file names);
+\item keywords are case-insensitive (\formatkey{upperBoundary} is the same as \formatkey{upperboundary} and \formatkey{UPPERBOUNDARY}): their string values are however case-sensitive (e.g.~file names);
 
-\item a long value, or a list of multiple values, can be distributed across multiple lines by using curly braces, ``\texttt{\{}'' and ``\texttt{\}}'': the opening brace ``\texttt{\{}'' must occur on the same line as the keyword, following a space character or other white space; the closing brace ``\texttt{\}}'' can be at any position after that; any keywords following the closing brace on the same line are not valid (they should appear instead on a different line);
+\item a long value, or a list of multiple values, can be distributed across multiple lines by using curly braces, \formatkey{\{} and \formatkey{\}}: the opening brace \formatkey{\{} must occur on the same line as the keyword, following a space character or other white space; the closing brace \formatkey{\}} can be at any position after that; any keywords following the closing brace on the same line are not valid (they should appear instead on a different line);
 
 \item many keywords are nested, and are only meaningful within a specific context: for every keyword documented in the following, the ``parent'' keyword that defines such context is also indicated\cvnamdugonly{ in parentheses};
 
 \cvnamdonly{%
-\item the `\texttt{=}' sign between a keyword and its value, deprecated in the NAMD main configuration file, is not allowed;
+\item the \formatkey{=} sign between a keyword and its value, deprecated in the NAMD main configuration file, is not allowed;
 
-\item Tcl syntax is generally not available, but it is possible to use Tcl variables or bracket expansion of commands within a configuration string, when this is passed via the command \texttt{cv config \ldots}; this is particularly useful when combined with parameter introspection\cvnamdugonly{ (see \ref{section:tclscripting})}, e.g.{} \texttt{cv config "colvarsTrajFrequency [DCDFreq]"};
+\item Tcl syntax is generally not available, but it is possible to use Tcl variables or bracket expansion of commands within a configuration string, when this is passed via the command \formatkey{cv config \ldots}; this is particularly useful when combined with parameter introspection\cvnamdugonly{ (see \ref{section:tclscripting})}, e.g.{} \formatkey{cv config "colvarsTrajFrequency [DCDFreq]"};
 }
 
 \cvvmdonly{%
-\item Tcl syntax is generally not available, but it is possible to use Tcl variables or bracket expansion of commands within a configuration string, when this is passed via the command \texttt{cv config \ldots}: for example, it is possible to convert the atom selection \$\emph{sel} into an atom group (see \ref{sec:colvar_atom_groups_sel}) using \texttt{cv config "atomNumbers \{ [\$sel get serial] \}"};}
+\item Tcl syntax is generally not available, but it is possible to use Tcl variables or bracket expansion of commands within a configuration string, when this is passed via the command \formatkey{cv config \ldots}: for example, it is possible to convert the atom selection \$\emph{sel} into an atom group (see \ref{sec:colvar_atom_groups_sel}) using \formatkey{cv config "atomNumbers \{ [\$sel get serial] \}"};}
 
-\item if a keyword requiring a boolean value (\texttt{yes|on|true} or \texttt{no|off|false}) is provided without an explicit value, it defaults to `\texttt{yes|on|true}'; for example, `\texttt{outputAppliedForce}' may be used as shorthand for `\texttt{outputAppliedForce on}';
+\item if a keyword requiring a boolean value (\formatkey{yes|on|true} or \formatkey{no|off|false}) is provided without an explicit value, it defaults to \formatkey{yes|on|true}; for example, \formatkey{outputAppliedForce} may be used as shorthand for \formatkey{outputAppliedForce on};
 
-\item the hash character \texttt{\#} indicates a comment: all text in the same line following this character will be ignored.
+\item the hash character \formatkey{\#} indicates a comment: all text in the same line following this character will be ignored.
 
 \end{itemize}
 
