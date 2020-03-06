@@ -11,6 +11,7 @@
 #define COLVARTYPES_H
 
 #include <vector>
+#include <iosfwd>
 
 #include "colvarmodule.h"
 

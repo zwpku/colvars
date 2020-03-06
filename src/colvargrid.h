@@ -10,8 +10,7 @@
 #ifndef COLVARGRID_H
 #define COLVARGRID_H
 
-#include <iostream>
-#include <iomanip>
+#include <iosfwd>
 
 #include "colvar.h"
 #include "colvarmodule.h"

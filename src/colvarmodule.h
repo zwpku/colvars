@@ -737,9 +737,6 @@ public:
 
 protected:
 
-  /// Configuration file
-  std::ifstream config_s;
-
   /// Configuration file parser object
   colvarparse *parse;
 

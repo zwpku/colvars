@@ -10,7 +10,7 @@
 #ifndef COLVARPROXY_H
 #define COLVARPROXY_H
 
-#include <fstream>
+#include <iosfwd>
 #include <list>
 
 #include "colvarmodule.h"
