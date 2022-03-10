@@ -24,6 +24,13 @@
 \item \texttt{fix\_modify Colvars delete}
 \\
 \texttt{Delete this Colvars module instance (VMD only)}
+\item \texttt{fix\_modify Colvars featurereport}
+\\
+\texttt{Return a summary of Colvars features used so far and their citations}
+\\
+\texttt{\textbf{Returns}}
+\\
+\texttt{report : string - Feature report and citations}
 \item \texttt{fix\_modify Colvars frame [frame]}
 \\
 \texttt{Get or set current frame number (VMD only)}
@@ -59,13 +66,16 @@
 \texttt{\textbf{Returns}}
 \\
 \texttt{force : float - RMS atomic force}
+\item \texttt{fix\_modify Colvars resetatomappliedforces}
+\\
+\texttt{Reset forces applied by Colvars to atoms}
 \item \texttt{fix\_modify Colvars getatomids}
 \\
 \texttt{Get the list of indices of atoms used in Colvars}
 \\
 \texttt{\textbf{Returns}}
 \\
-\texttt{indices : array of ints - Atomic indices}
+\texttt{indices : array of ints - Atom indices}
 \item \texttt{fix\_modify Colvars getatomcharges}
 \\
 \texttt{Get the list of charges of atoms used in Colvars}
@@ -115,6 +125,13 @@
 \texttt{\textbf{Returns}}
 \\
 \texttt{help : string - Help string}
+\item \texttt{fix\_modify Colvars languageversion}
+\\
+\texttt{Get the C++ language version number}
+\\
+\texttt{\textbf{Returns}}
+\\
+\texttt{version : string - C++ language version}
 \item \texttt{fix\_modify Colvars list [param]}
 \\
 \texttt{Return a list of all variables or biases}
@@ -199,7 +216,7 @@
 \texttt{Recalculate colvars and biases}
 \item \texttt{fix\_modify Colvars version}
 \\
-\texttt{Get the Colvars Module version number}
+\texttt{Get the Colvars Module version string}
 \\
 \texttt{\textbf{Returns}}
 \\
@@ -218,6 +235,9 @@
 \texttt{\textbf{Returns}}
 \\
 \texttt{force : float or array - Applied force; matches colvar dimensionality}
+\item \texttt{fix\_modify Colvars colvar name communicateforces}
+\\
+\texttt{Communicate bias forces from this colvar to atoms}
 \item \texttt{fix\_modify Colvars colvar name cvcflags <flags>}
 \\
 \texttt{Enable or disable individual components by setting their active flags}
@@ -246,6 +266,9 @@
 \texttt{\textbf{Returns}}
 \\
 \texttt{force : float - Applied force; matches the colvar dimensionality}
+\item \texttt{fix\_modify Colvars colvar name resetbiasforce}
+\\
+\texttt{Return the total of the forces applied to this colvar}
 \item \texttt{fix\_modify Colvars colvar name getatomgroups}
 \\
 \texttt{Return the atom indices used by this colvar as a list of lists}
@@ -455,6 +478,13 @@
 \texttt{\textbf{Returns}}
 \\
 \texttt{state : string - String representation of the bias features}
+\item \texttt{fix\_modify Colvars bias name type}
+\\
+\texttt{Print the type of this bias object}
+\\
+\texttt{\textbf{Returns}}
+\\
+\texttt{type : string - Type of this bias object (e.g. metadynamics)}
 \item \texttt{fix\_modify Colvars bias name update}
 \\
 \texttt{Recompute this bias and return its up-to-date energy}
