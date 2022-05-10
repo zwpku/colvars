@@ -687,8 +687,8 @@ namespace UIestimator {
                 std::string count_filename = filename[i] + ".UI.count";
                 std::string grad_filename = filename[i] + ".UI.grad";
 
-                std::ifstream count_file(count_filename.c_str(), std::ios::in);
-                std::ifstream grad_file(grad_filename.c_str(), std::ios::in);
+                cv_ifstream count_file(count_filename.c_str(), std::ios::in);
+                cv_ifstream grad_file(grad_filename.c_str(), std::ios::in);
 
                 count_file >> sharp >> dimension_temp;
                 grad_file >> sharp >> dimension_temp;

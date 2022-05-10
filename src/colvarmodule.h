@@ -57,6 +57,11 @@ class colvarproxy;
 class colvarscript;
 class colvarvalue;
 
+// This is overloaded in the Gromacs implementation
+// to abstract input file reading
+#ifndef COLVARS_OVERLOAD_IFSTREAM
+typedef std::ifstream cv_ifstream;
+#endif
 
 /// \brief Collective variables module (main class)
 ///

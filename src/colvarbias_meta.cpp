@@ -283,7 +283,7 @@ int colvarbias_meta::init_ebmeta_params(std::string const &conf)
     target_dist->init_from_colvars(colvars);
     std::string target_dist_file;
     get_keyval(conf, "targetDistFile", target_dist_file);
-    std::ifstream targetdiststream(target_dist_file.c_str());
+    cv_ifstream targetdiststream(target_dist_file.c_str());
     target_dist->read_multicol(targetdiststream);
     cvm::real min_val = target_dist->minimum_value();
     cvm::real max_val = target_dist->maximum_value();
@@ -1006,7 +1006,7 @@ void colvarbias_meta::update_replicas_registry()
   {
     // copy the whole file into a string for convenience
     std::string line("");
-    std::ifstream reg_file(replicas_registry_file.c_str());
+    cv_ifstream reg_file(replicas_registry_file.c_str());
     if (reg_file.is_open()) {
       replicas_registry.clear();
       while (colvarparse::getline_nocomments(reg_file, line))
@@ -1092,7 +1092,7 @@ void colvarbias_meta::update_replicas_registry()
                ": reading the list file for replica \""+
                (replicas[ir])->replica_id+"\".\n");
 
-    std::ifstream list_is((replicas[ir])->replica_list_file.c_str());
+    cv_ifstream list_is((replicas[ir])->replica_list_file.c_str());
     std::string key;
     std::string new_state_file, new_hills_file;
     if (!(list_is >> key) ||
@@ -1138,7 +1138,7 @@ void colvarbias_meta::read_replica_files()
                  ": reading the state of replica \""+
                  (replicas[ir])->replica_id+"\" from file \""+
                  (replicas[ir])->replica_state_file+"\".\n");
-        std::ifstream is((replicas[ir])->replica_state_file.c_str());
+        cv_ifstream is((replicas[ir])->replica_state_file.c_str());
         if ((replicas[ir])->read_state(is)) {
           // state file has been read successfully
           (replicas[ir])->replica_state_file_in_sync = true;
@@ -1178,7 +1178,7 @@ void colvarbias_meta::read_replica_files()
 
       // read hills from the other replicas' files
 
-      std::ifstream is((replicas[ir])->replica_hills_file.c_str());
+      cv_ifstream is((replicas[ir])->replica_hills_file.c_str());
       if (is.is_open()) {
 
         // try to resume the previous position (if not the beginning)
@@ -1646,7 +1646,7 @@ int colvarbias_meta::setup_output()
 
     // first check that it isn't already there
     bool registered_replica = false;
-    std::ifstream reg_is(replicas_registry_file.c_str());
+    cv_ifstream reg_is(replicas_registry_file.c_str());
     if (reg_is.is_open()) {  // the file may not be there yet
       std::string existing_replica("");
       std::string existing_replica_file("");

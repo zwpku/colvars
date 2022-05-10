@@ -1350,7 +1350,7 @@ int colvarbias_restraint_histogram::init(std::string const &conf)
       cvm::error("Error: cannot specify both refHistogram and refHistogramFile at the same time.\n",
                  COLVARS_INPUT_ERROR);
     } else {
-      std::ifstream is(ref_p_file.c_str());
+      cv_ifstream is(ref_p_file.c_str());
       std::string data_s = "";
       std::string line;
       while (getline_nocomments(is, line)) {

@@ -709,7 +709,7 @@ void colvarbias_abf::read_gradients_samples()
     z_gradients_in_name = input_prefix[i] + ".zgrad";
     // For user-provided files, the per-bias naming scheme may not apply
 
-    std::ifstream is;
+    cv_ifstream is;
 
     cvm::log("Reading sample count from " + samples_in_name + " and gradient from " + gradients_in_name);
     is.open(samples_in_name.c_str());

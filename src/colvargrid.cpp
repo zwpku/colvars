@@ -145,7 +145,7 @@ colvar_grid_gradient::colvar_grid_gradient(std::string &filename)
     samples(NULL),
     weights(NULL)
 {
-  std::ifstream is;
+  cv_ifstream is;
   is.open(filename.c_str());
   if (!is.is_open()) {
     cvm::error("Error opening multicol gradient file " + filename + " for reading.\n");

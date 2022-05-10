@@ -124,7 +124,7 @@ int colvarbias::init(std::string const &conf)
     std::string biasing_force_scaling_factors_in_filename;
     get_keyval(conf, "scaledBiasingForceFactorsGrid",
                biasing_force_scaling_factors_in_filename, std::string());
-    std::ifstream is;
+    cv_ifstream is;
     cvm::log("Reading scaling factors for the forces of bias " +
              name + " from " + biasing_force_scaling_factors_in_filename);
     is.open(biasing_force_scaling_factors_in_filename.c_str());
@@ -601,7 +601,7 @@ int colvarbias::write_state_string(std::string &output)
 int colvarbias::read_state_prefix(std::string const &prefix)
 {
   std::string filename((prefix+std::string(".colvars.state")).c_str());
-  std::ifstream is(filename.c_str());
+  cv_ifstream is(filename.c_str());
   if (!is.good()) {
     // try without the suffix
     is.clear();

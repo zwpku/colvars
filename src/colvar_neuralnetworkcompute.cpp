@@ -124,7 +124,7 @@ void denseLayer::readFromFile(const std::string& weights_file, const std::string
     m_weights.clear();
     m_biases.clear();
     std::string line;
-    std::ifstream ifs_weights(weights_file.c_str());
+    cv_ifstream ifs_weights(weights_file.c_str());
     if (!ifs_weights) {
         throw std::runtime_error("Cannot open file " + weights_file);
     }
@@ -147,7 +147,7 @@ void denseLayer::readFromFile(const std::string& weights_file, const std::string
         }
     }
     // parse biases file
-    std::ifstream ifs_biases(biases_file.c_str());
+    cv_ifstream ifs_biases(biases_file.c_str());
     if (!ifs_biases) {
         throw std::runtime_error("Cannot open file " + biases_file);
     }

@@ -426,7 +426,7 @@ colvar::CVBasedPath::CVBasedPath(std::string const &conf): cvc(conf) {
     std::string path_filename;
     get_keyval(conf, "pathFile", path_filename);
     cvm::log(std::string("Reading path file: ") + path_filename + std::string("\n"));
-    std::ifstream ifs_path(path_filename);
+    cv_ifstream ifs_path(path_filename);
     if (!ifs_path.is_open()) {
         cvm::error("Error: failed to open path file.\n");
         return;

@@ -1289,7 +1289,7 @@ int colvarmodule::setup_input()
     // Read a state file
     std::string restart_in_name(proxy->input_prefix()+
                                 std::string(".colvars.state"));
-    std::ifstream input_is(restart_in_name.c_str());
+    cv_ifstream input_is(restart_in_name.c_str());
     if (!input_is.good()) {
       // Try without the suffix
       input_is.clear();
@@ -1582,7 +1582,7 @@ int colvarmodule::read_traj(char const *traj_filename,
 {
   cvm::log("Opening trajectory file \""+
            std::string(traj_filename)+"\".\n");
-  std::ifstream traj_is(traj_filename);
+  cv_ifstream traj_is(traj_filename);
 
   while (true) {
     while (true) {
@@ -1861,7 +1861,7 @@ int colvarmodule::error(std::string const &message, int code)
 
 int cvm::read_index_file(char const *filename)
 {
-  std::ifstream is(filename, std::ios::binary);
+  cv_ifstream is(filename, std::ios::binary);
   if (!is.good()) {
     return cvm::error("Error: in opening index file \""+
                std::string(filename)+"\".\n",
@@ -2018,7 +2018,7 @@ int cvm::load_coords_xyz(char const *filename,
                          std::vector<rvector> *pos,
                          cvm::atom_group *atoms)
 {
-  std::ifstream xyz_is(filename);
+  cv_ifstream xyz_is(filename);
   unsigned int natoms;
   char symbol[256];
   std::string line;

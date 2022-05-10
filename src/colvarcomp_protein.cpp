@@ -333,7 +333,7 @@ colvar::dihedPC::dihedPC(std::string const &conf)
       return;
     }
 
-    std::ifstream vecFile;
+    cv_ifstream vecFile;
     vecFile.open(vecFileName.c_str());
     if (!vecFile.good()) {
       cvm::error("Error opening dihedral PCA vector file " + vecFileName + " for reading");
