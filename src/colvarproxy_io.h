@@ -95,6 +95,15 @@ public:
     return input_buffer_;
   }
 
+  /// Returns a reference to given input stream, creating it if needed
+  virtual std::istream *input_stream(std::string const &input_name);
+
+  /// Returns a reference to given input stream, null otherwise
+  virtual std::istream *get_input_stream(std::string const &input_name);
+
+  /// Closes the given input stream
+  virtual int close_input_stream(std::string const &input_name);
+
   /// \brief Returns a reference to the given output channel;
   /// if this is not open already, then open it
   virtual std::ostream *output_stream(std::string const &output_name,
@@ -132,6 +141,8 @@ protected:
   std::list<std::ostream *> output_files;
   /// \brief Identifiers for output_stream objects: by default, these are the names of the files
   std::list<std::string>    output_stream_names;
+
+  std::map<std::string, std::istream *> input_streams_;
 
   /// Buffer from which the input state information may be read
   char const *input_buffer_;
