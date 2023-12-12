@@ -29,6 +29,8 @@ colvarbias_abf::colvarbias_abf(char const *key)
     czar_gradients(NULL),
     czar_pmf(NULL),
     last_gradients(NULL),
+    max_force_norm(NULL),
+    max_force_sample(NULL),
     last_samples(NULL)
 {
   colvarproxy *proxy = cvm::main()->proxy;
@@ -190,6 +192,11 @@ int colvarbias_abf::init(std::string const &conf)
   gradients->samples = samples;
   samples->has_parent_data = true;
 
+  max_force_norm = new colvar_grid_scalar(colvars);
+  max_force_sample = new colvar_grid_count(colvars);
+  max_force_norm->samples = max_force_sample;
+  max_force_sample->has_parent_data = true;
+
   // Data for eAB F z-based estimator
   if ( b_extended ) {
     get_keyval(conf, "CZARestimator", b_CZAR_estimator, true);
@@ -295,6 +302,16 @@ colvarbias_abf::~colvarbias_abf()
     gradients = NULL;
   }
 
+  if (max_force_norm) {
+    delete max_force_norm;
+    max_force_norm = NULL;
+  }
+
+  if (max_force_sample) {
+    delete max_force_sample;
+    max_force_sample = NULL;
+  }
+
   if (pmf) {
     delete pmf;
     pmf = NULL;
@@ -355,6 +372,9 @@ int colvarbias_abf::update()
     // e.g. in LAMMPS, total forces are current
     force_bin = bin;
   }
+
+  if (max_force_sample->index_ok(force_bin)) 
+      max_force_norm->acc_value(force_bin, cvm::proxy->max_atoms_applied_force());
 
   if (cvm::step_relative() > 0 || is_enabled(f_cvb_step_zero_data)) {
 
@@ -644,6 +664,8 @@ void colvarbias_abf::write_gradients_samples(const std::string &prefix, bool clo
 
   write_grid_to_file<colvar_grid_count>(samples, prefix + ".count", close);
   write_grid_to_file<colvar_grid_gradient>(gradients, prefix + ".grad", close);
+
+  write_grid_to_file<colvar_grid_scalar>(max_force_norm, prefix + ".mfn", close);
 
   if (b_integrate) {
     // Do numerical integration (to high precision) and output a PMF

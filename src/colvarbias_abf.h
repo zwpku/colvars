@@ -110,6 +110,9 @@ private:
   /// n-dim grid of CZAR pmf (dimension 1 to 3)
   integrate_potential   *czar_pmf;
 
+  colvar_grid_count     *max_force_sample;
+  colvar_grid_scalar *max_force_norm;
+
   inline int update_system_force(size_t i)
   {
     if (colvars[i]->is_enabled(f_cv_subtract_applied_force)) {

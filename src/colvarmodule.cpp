@@ -807,6 +807,8 @@ int colvarmodule::calc()
 
   error_code |= analyze();
 
+  proxy->compute_max_atoms_applied_force();
+
   // write trajectory files, if needed
   if (cv_traj_freq && cv_traj_name.size()) {
     error_code |= write_traj_files();
@@ -1924,6 +1926,7 @@ std::ostream & colvarmodule::write_traj(std::ostream &os)
        bi++) {
     (*bi)->write_traj(os);
   }
+  os << " " << proxy->max_atoms_applied_force_id() << ' ' << proxy->max_atoms_applied_force();
   os << "\n";
 
   cvm::decrease_depth();
